@@ -424,6 +424,13 @@ namespace ValveResourceFormat
                 identifier = identifier["Compile".Length..];
             }
 
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            if(block.Type == BlockType.PHYS)
+            {
+                File.WriteAllText(filePath + "\\source2viewer\\world_physics.vphys", block.ToString());
+            }
+
             // Special mappings and otherwise different identifiers
             var resourceType = identifier switch
             {
