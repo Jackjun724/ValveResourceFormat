@@ -278,6 +278,11 @@ namespace ValveResourceFormat
                 if (block.Type is not BlockType.REDI and not BlockType.RED2 and not BlockType.NTRO)
                 {
                     block.Read(Reader, this);
+                    if(block.Type == BlockType.PHYS)
+                    {
+                        string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                        File.WriteAllText(filePath + "\\source2viewer\\world_physics.vphys", block.ToString());
+                    }
                 }
             }
 
@@ -422,13 +427,6 @@ namespace ValveResourceFormat
             if (identifier.StartsWith("Compile", StringComparison.Ordinal))
             {
                 identifier = identifier["Compile".Length..];
-            }
-
-            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-
-            if(block.Type == BlockType.PHYS)
-            {
-                File.WriteAllText(filePath + "\\source2viewer\\world_physics.vphys", block.ToString());
             }
 
             // Special mappings and otherwise different identifiers
